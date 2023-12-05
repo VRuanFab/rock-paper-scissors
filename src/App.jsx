@@ -7,34 +7,38 @@ import scissors from './images/scissors.png'
 
 function App() {
 
-  const [oponent, setOponent] = useState(defaultImage)
+  const [choice, setchoice] = useState(defaultImage)
   const [escolha, setEscolha] = useState([])
+  const [resultado, setResultado] = useState([])
+
+  const pedra = document.getElementById('Pedra')
+  const papel = document.getElementById('Papel')
+  const tesoura = document.getElementById('Tesoura')
 
   function click(){
     const choice = Math.floor(Math.random() * 3 + 1)
+
     switch (choice){
       case 1:
-          setOponent(paper)
+          setchoice(paper)
         break;
       
       case 2:
-          setOponent(rock)
+          setchoice(rock)
         break;
 
       case 3:
-          setOponent(scissors)
+          setchoice(scissors)
         break;
     }
-
-      const pedra = document.getElementById('Pedra')
-      const papel = document.getElementById('Papel')
-      const tesoura = document.getElementById('Tesoura')
-  
-      switch (pedra){
-        case choice === 1:
-          console.log('you win')
-          break;
-      }
+    
+    if (pedra.checked && choice === 1 || papel.checked && choice === 3 || tesoura.checked && choice === 2){
+      setResultado('Perdeu')
+    } else if (pedra.checked && choice === 3 || papel.checked && choice === 2 || tesoura.checked && choice === 1){
+      setResultado('Ganhou')
+    } else {
+      setResultado('Empatou')
+    }
   }
 
   const style = ['w-[10rem] h-[9rem]']
@@ -43,31 +47,47 @@ function App() {
     <div className=''>
       <h1 className='flex justify-center mt-3'>Pedra, papel, tesoura</h1>
 
-      <div className='flex justify-center mt-10'>
-        <img src={oponent} alt='papel' className={style[0]}/>
-        {escolha === null? (<></>):(
-          <img src={escolha} alt='escolha'/>
-        )}
+      <div>
+        <div className='flex justify-center mt-10 space-x-28'>
+
+          <img src={choice} alt='papel' className={style[0]}/>
+
+          {
+          choice === defaultImage? (<></>):
+          pedra.checked? (<img src={rock} alt='papel' className={style[0]}/>):
+          papel.checked? (<img src={paper} alt='papel' className={style[0]}/>):
+          (<img src={scissors} alt='tesoura' className={style[0]}/>)
+          }
+
+        </div>
+
+        {resultado}
       </div>
 
       <div>
         Escolha:
         <div className='flex space-x-10'>
 
-          <label for='Pedra'>
-            <img src={rock} alt='Pedra' className={style[0]}/>
-          </label>
-          <input type='radio' id='Pedra' name='choice'/>
+          <div>
+            <label for='Pedra'>
+              <img src={rock} alt='Pedra' className={style[0]}/>
+            </label>
+            <input type='radio' id='Pedra' name='choice'/>
+          </div>
 
-          <label for='Papel'>
-            <img src={paper} alt='Papel' className={style[0]}/>
-          </label>
-          <input type='radio' id='Papel' name='choice'/>
+          <div>
+            <label for='Papel'>
+              <img src={paper} alt='Papel' className={style[0]}/>
+            </label>
+            <input type='radio' id='Papel' name='choice'/>
+          </div>
 
-          <label for='Tesoura'>
-            <img src={scissors} alt='Tesoura' className={style[0]}/>
-          </label>
-          <input type='radio' id='Tesoura' name='choice'/>
+          <div>
+            <label for='Tesoura'>
+              <img src={scissors} alt='Tesoura' className={style[0]}/>
+            </label>
+            <input type='radio' id='Tesoura' name='choice'/>
+          </div>
 
         </div>
 
