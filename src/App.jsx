@@ -3,12 +3,11 @@ import { useState } from 'react';
 import defaultImage from './images/defaultImage.jpg'
 import paper from './images/paper.png';
 import rock from './images/rock.png';
-import scissors from './images/scissors.png'
+import scissors from './images/scissors.png';
 
 function App() {
 
-  const [choice, setchoice] = useState(defaultImage)
-  const [escolha, setEscolha] = useState([])
+  const [choice, setChoice] = useState(defaultImage)
   const [resultado, setResultado] = useState([])
 
   const pedra = document.getElementById('Pedra')
@@ -20,15 +19,15 @@ function App() {
 
     switch (choice){
       case 1:
-          setchoice(paper)
+          setChoice(paper)
         break;
-      
+
       case 2:
-          setchoice(rock)
+          setChoice(rock)
         break;
 
       case 3:
-          setchoice(scissors)
+          setChoice(scissors)
         break;
     }
     
@@ -39,6 +38,11 @@ function App() {
     } else {
       setResultado('Empatou')
     }
+
+    if (!pedra.checked && !papel.checked && !tesoura.checked){
+      setChoice(defaultImage)
+      setResultado('Escolha uma opção')
+    }
   }
 
   const style = ['w-[10rem] h-[9rem]']
@@ -48,8 +52,8 @@ function App() {
       <h1 className='flex justify-center mt-3'>Pedra, papel, tesoura</h1>
 
       <div>
-        <div className='flex justify-center mt-10 space-x-28'>
 
+        <div className='flex justify-center mt-10 space-x-28'>
           <img src={choice} alt='papel' className={style[0]}/>
 
           {
@@ -58,10 +62,9 @@ function App() {
           papel.checked? (<img src={paper} alt='papel' className={style[0]}/>):
           (<img src={scissors} alt='tesoura' className={style[0]}/>)
           }
-
         </div>
-
         {resultado}
+        
       </div>
 
       <div>
