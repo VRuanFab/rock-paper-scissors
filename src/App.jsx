@@ -45,47 +45,61 @@ function App() {
     }
   }
 
-  const style = ['w-[10rem] h-[9rem]']
+  const style = ['w-[12rem] h-[10.5rem]', 'grid space-y-3', 'justify-self-center border-b-2 text-xl mt-2 font-semibold']
 
   return (
     <div className=''>
-      <h1 className='flex justify-center mt-3'>Pedra, papel, tesoura</h1>
+      <h1 className='flex justify-center mt-3 text-4xl'>Pedra - papel - tesoura</h1>
 
-      <div>
+      <div className='grid'>
 
         <div className='flex justify-center mt-10 space-x-28'>
-          <img src={choice} alt='papel' className={style[0]}/>
 
-          {
-          choice === defaultImage? (<></>):
-          pedra.checked? (<img src={rock} alt='papel' className={style[0]}/>):
-          papel.checked? (<img src={paper} alt='papel' className={style[0]}/>):
-          (<img src={scissors} alt='tesoura' className={style[0]}/>)
-          }
+          <div className='grid'>
+            <img src={choice} alt='papel' className={style[0]}/>
+            {choice === defaultImage? (<></>):(<span className={`${style[2]} border-red-600`}>Oponente</span>)}
+          </div>
+
+            {
+            choice === defaultImage? (<></>):
+            pedra.checked? (<div className='grid'>
+              <img src={rock} alt='papel' className={style[0]}/> 
+              <span className={`${style[2]} border-blue-600`}>Você</span>
+            </div>):
+            papel.checked? (<div className='grid'>
+              <img src={paper} alt='papel' className={style[0]}/>
+              <span className={`${style[2]} border-blue-600`}>Você</span>
+            </div>):
+            (<div className='grid'>
+              <img src={scissors} alt='tesoura' className={style[0]}/>
+              <span className={`${style[2]} border-blue-600`}>Você</span>
+            </div>)
+            }
+
         </div>
-        {resultado}
-        
+        <span className='justify-self-center m-6 text-3xl'>{resultado}</span>
       </div>
 
-      <div>
-        Escolha:
-        <div className='flex space-x-10'>
+      <div className='grid justify-center'>
+        <span className={`${style[2]} mb-5`}>Escolha</span>
 
-          <div>
+        <div className='flex space-x-10 justify-center'>
+
+          <div className={style[1]}>
             <label for='Pedra'>
               <img src={rock} alt='Pedra' className={style[0]}/>
             </label>
             <input type='radio' id='Pedra' name='choice'/>
           </div>
 
-          <div>
+          <div className={style[1]}>
             <label for='Papel'>
               <img src={paper} alt='Papel' className={style[0]}/>
             </label>
             <input type='radio' id='Papel' name='choice'/>
           </div>
 
-          <div>
+          <div className={style[1]}>
             <label for='Tesoura'>
               <img src={scissors} alt='Tesoura' className={style[0]}/>
             </label>
@@ -94,7 +108,8 @@ function App() {
 
         </div>
 
-        <input type='button' value='Jogar' onClick={click} className='border-2 p-1 bg-[#f0f0f0]'/>
+        <input type='button' value='Jogar' onClick={click} className='justify-self-center border-2 p-1 
+        w-20 bg-[#f0f0f0] mt-7 hover:cursor-pointer'/>
         
       </div>
     </div>
